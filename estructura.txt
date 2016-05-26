@@ -3,12 +3,13 @@ usuario{
 	usuario
 	contraseña
 	rol
-	documentos[]
 	}
 documentos{
+
 	caratula
 	titulo	
 	tags[]
+	dueno[](arreglo de usuarios que pueden ver)
 	archivo (archivo en base64)
 	}
 rol{
