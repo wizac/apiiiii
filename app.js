@@ -14,7 +14,7 @@ app.use('/api', apiRoutes);
 
 app.post('/api/insertarDocumento', function(){});
 
-app.post('/api/modificarTags', function(){});
+app.get('/api/insertarTag', tag.put(db));
 
 app.get('/api/listarDocumentos', function(){});
 
@@ -44,9 +44,9 @@ app.get('/api/borrarUsuario', function(){});
 
 app.get('/api/listarUsuarios', function(){});
 
-app.get('/', function(req, res){
+/*app.get('/', function(req, res){
 	console.log(req);
-});
+});*/
 
 //--------------------------------------------------
 
