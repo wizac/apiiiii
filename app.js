@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var tag=require('TagManager');
 
 app.use(bodyParser.json());
 
