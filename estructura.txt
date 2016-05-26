@@ -1,0 +1,17 @@
+usuario{
+	nombre
+	usuario
+	contraseña
+	rol
+	documentos[]
+	}
+documentos{
+	caratula
+	titulo	
+	tags[]
+	archivo (archivo en base64)
+	}
+rol{
+	nombre
+	permisos[]
+	}
