@@ -43,9 +43,9 @@ app.get('/api/borrarUsuario', function(){});
 
 app.get('/api/listarUsuarios', function(){});
 
-app.get('/', function(req, res){
+/*app.get('/', function(req, res){
 	console.log(req);
-});
+});*/
 
 //--------------------------------------------------
 
