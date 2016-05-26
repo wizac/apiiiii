@@ -18,7 +18,7 @@ var puttag=module.exports={
 				if (err) 
 					throw err;
 				//probar esto si es que anda
-				colleccion.test.update( {"$pushAll" : {tags : data}}, function(err){
+				colleccion.test.update( {"$push" : {tags : data}}, function(err){
 					if (err) 
 						throw err;
 				});
