@@ -3,7 +3,11 @@ var jwt = require('jsonwebtoken');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var tag=require('TagManager');
+
+
+//var tag=require('./TagManager.js');
+var autenticacion = require('./login.js');
+
 
 app.use(bodyParser.json());
 
@@ -14,11 +18,11 @@ app.use('/api', apiRoutes);
 
 app.post('/api/insertarDocumento', function(){});
 
-app.get('/api/insertarTag', tag.put(db));
+app.get('/api/insertarTag', function(){});
 
 app.get('/api/listarDocumentos', function(){});
 
-app.post('/autenticacion', function(){});
+app.post('/autenticacion', autenticacion.login(db));
 
 app.post('/registro', function(){});
 
