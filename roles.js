@@ -26,7 +26,22 @@ function insertarRol(db) {
 
 function modificarRol(db) {
 	return function (req, res) {
-
+		var rol = db.get('rol');
+		var nuevoRol = {
+			"nombre": req.body.nombre,
+			"permisos": req.body.permisos
+		};
+		rol.find({ nombre: req.body.nombre }, function (err, doc) {
+			if (err) throw err;
+			else {
+				if (doc.length != 0) {
+					rol.update({"nombre":nuevoRol.nombre},{"permisos": nuevoRol.servicios});
+				}
+				else {
+					res.send("No se registra ningun rol con ese nombre.");
+				}
+			}
+		});
 	}
 }
 

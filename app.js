@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
 var insertarRol = require('./roles');
+
 var mario = require('./mario');
 
 var tag=require('./TagManager.js');
@@ -39,7 +40,7 @@ app.post('/api/modificarDocumento', function(){});
 
 app.post('/api/insertarRol', insertarRol.insertarRol(db));
 
-app.post('/api/modificarRol', function(){});
+app.post('/api/modificarRol', modificarRol.modificarRol(db));
 
 app.post('/api/borrarRol', function(){});
 
