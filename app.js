@@ -4,8 +4,9 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
+var insertarRol = require('./roles');
 
-//var tag=require('./TagManager.js');
+var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
 var listar = require('./listarDocumentosYUsuarios.js');
 
@@ -19,7 +20,9 @@ app.use('/api', apiRoutes);
 
 app.post('/api/insertarDocumento', function(){});
 
-app.get('/api/insertarTag', function(){});
+app.post('/api/insertarTag', tag.put(db));
+
+app.post('/api/borrarTag', tag.del(db));
 
 app.post('/api/listarDocumentos', listar.listarDocumentos(db));
 
@@ -33,7 +36,7 @@ app.get('/api/borrarDocumento', function(){});
 
 app.post('/api/modificarDocumento', function(){});
 
-app.post('/api/insertarRol', function(){});
+app.post('/api/insertarRol', insertarRol.insertarRol(db));
 
 app.post('/api/modificarRol', function(){});
 
