@@ -15,7 +15,7 @@ module.exports = {
 					if (data.contrasena != req.body.contrasena) {
 		        		res.json({ success: false, message: 'Autenticacion fallida. Contraseña incorrecta.' });
 		        	}else{
-						var token = jwt.sign({ usuario: data.usuario, rol: data.rol }, "secret");
+						var token = jwt.sign({ id: data._id, usuario: data.usuario, rol: data.rol }, "secret");
 
 			        	res.json({
 				          	success: true,
