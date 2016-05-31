@@ -1,12 +1,11 @@
 function insertarRol(db) {
 	return function (req, res) {
-		console.log("entro el insertarRol");
 		var rol = db.get('rol');
 		var nuevoRol = {
 			"nombre": req.body.nombre,
 			"permisos": req.body.permisos
 		};
-		rol.find({ nombre: nuevoRol.nombre }, function (err, doc) {
+		rol.find({ nombre: req.body.nombre }, function (err, doc) {
 			if (err) throw err;
 			else {
 				if (doc.length != 0) {
@@ -16,7 +15,7 @@ function insertarRol(db) {
 					rol.insert(nuevoRol, function (err, doc) {
 						if (err) throw err;
 						else {
-							res("El rol " + nuevoRol.nombre + " ha sido insertado con éxito");
+							res.send("El rol " + nuevoRol.nombre + " ha sido insertado con éxito");
 						}
 					});
 				}

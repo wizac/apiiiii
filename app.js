@@ -9,6 +9,7 @@ var mario = require('./mario');
 
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
+var listar = require('./listarDocumentosYUsuarios.js');
 
 
 app.use(bodyParser.json());
@@ -24,7 +25,7 @@ app.post('/api/insertarTag', tag.put(db));
 
 app.post('/api/borrarTag', tag.del(db));
 
-app.get('/api/listarDocumentos', function(){});
+app.post('/api/listarDocumentos', listar.listarDocumentos(db));
 
 app.post('/autenticacion', autenticacion.login(db));
 
@@ -52,7 +53,7 @@ app.post('/api/modificarUsuario', function(){});
 
 app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
-app.get('/api/listarUsuarios', function(){});
+app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 
 
 //--------------------------------------------------
