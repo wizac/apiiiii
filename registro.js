@@ -21,4 +21,4 @@ function registro(db){
 			}	
 }
 
-module.exports = registro;
+module.exports.registro = registro;
