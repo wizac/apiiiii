@@ -5,9 +5,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
 var insertarRol = require('./roles');
+var mario = require('./mario');
 
-//var tag=require('./TagManager.js');
+var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
+var listar = require('./listarDocumentosYUsuarios.js');
 
 
 app.use(bodyParser.json());
@@ -17,11 +19,13 @@ app.use('/api', apiRoutes);
 
 //-----------------------------------------------------------
 
-app.post('/api/insertarDocumento', function(){});
+app.post('/api/insertarDocumento', mario.documentoPut(db));
 
-app.get('/api/insertarTag', function(){});
+app.post('/api/insertarTag', tag.put(db));
 
-app.get('/api/listarDocumentos', function(){});
+app.post('/api/borrarTag', tag.del(db));
+
+app.post('/api/listarDocumentos', listar.listarDocumentos(db));
 
 app.post('/autenticacion', autenticacion.login(db));
 
@@ -43,13 +47,13 @@ app.get('/api/listarRol', function(){});
 
 app.post('/api/asignarRol', function(){});
 
-app.post('/api/insertarUsuario', function(){});
+app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
 app.post('/api/modificarUsuario', function(){});
 
 app.get('/api/borrarUsuario', function(){});
 
-app.get('/api/listarUsuarios', function(){});
+app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 
 
 //--------------------------------------------------
