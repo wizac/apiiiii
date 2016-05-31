@@ -38,7 +38,9 @@ app.post('/api/modificarRol', function(){});
 
 app.post('/api/borrarRol', function(){});
 
-app.get('/api/listarRoles', function(){});
+app.get('/api/listarRol', function(){});
+
+app.post('/api/asignarRol', function(){});
 
 app.post('/api/insertarUsuario', function(){});
 
