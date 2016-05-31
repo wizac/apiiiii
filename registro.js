@@ -2,7 +2,7 @@ function registro(db){
 	return function(req, res){
 			var user = { user : req.body.usuario,
 				pass : req.body.contrasena,
-				name : req.body.nombre};
+			}
 			var users = db.get('usuario');
 			users.find({ user : user.user}, function( err, doc){
 				if(err) throw err;
@@ -15,7 +15,7 @@ function registro(db){
 						users.insert(user, function( err, doc){
 							if(err) throw err;
 							else{
-								res.send('Binenvenido ' + user.name + '/' + user.user + '!!!!');
+								res.send('Binenvenido ' + user.user + '!!!!');
 							}
 						});
 						
