@@ -7,6 +7,7 @@ var registro = require('./registro');
 
 //var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
+var listar = require('./listarDocumentosYUsuarios.js');
 
 
 app.use(bodyParser.json());
@@ -20,7 +21,7 @@ app.post('/api/insertarDocumento', function(){});
 
 app.get('/api/insertarTag', function(){});
 
-app.get('/api/listarDocumentos', function(){});
+app.post('/api/listarDocumentos', listar.listarDocumentos(db));
 
 app.post('/autenticacion', autenticacion.login(db));
 
@@ -48,7 +49,7 @@ app.post('/api/modificarUsuario', function(){});
 
 app.get('/api/borrarUsuario', function(){});
 
-app.get('/api/listarUsuarios', function(){});
+app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 
 
 //--------------------------------------------------
