@@ -1,3 +1,5 @@
+var jwt = require('jsonwebtoken');
+
 module.exports = {
 	login: function(db){
 		return function(req, res) {
