@@ -63,7 +63,7 @@ apiRoutes.use(function(req, res, next) {
 
 	        var tienePermiso = false;
 	        var urlPath = req.url.substring(0, req.url.indexOf('?'));
-
+	        
 	        for (var i = 0; i < req.decoded.rol.permisos.length; i++){
         		if (req.decoded.rol.permisos[i] === urlPath) {
         			
