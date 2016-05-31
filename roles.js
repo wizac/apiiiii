@@ -30,16 +30,19 @@ function modificarRol(db) {
 
 	}
 }
+
 function borrarRol(db) {
 	return function (req, res) {
 
 	}
 }
+
 function listarRol(db) {
 	return function (req, res) {
 
 	}
 }
+
 function asignarRol(db) {
 	return function (req, res) {
 
