@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 var registro = require('./registro');
 var insertarRol = require('./roles');
 var mario = require('./mario');
+var tD = require("./transferirDocumento");
+var eD = require("./eliminaDocumento");
+var aD = require("./actualizaDocumento");
 
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
@@ -31,11 +34,11 @@ app.post('/autenticacion', autenticacion.login(db));
 
 app.post('/registro', registro.registro(db));
 
-app.get('/api/compartirDocumento', function(){});
+app.get('/api/transferirDocumento', tD.transferirDocumento(db));
 
-app.get('/api/borrarDocumento', function(){});
+app.get('/api/eliminaDocumento', eD.eliminaDocumento(db));
 
-app.post('/api/modificarDocumento', function(){});
+app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
 
 app.post('/api/insertarRol', insertarRol.insertarRol(db));
 
