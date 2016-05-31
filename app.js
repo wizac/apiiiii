@@ -50,15 +50,11 @@ app.get('/api/borrarUsuario', function(){});
 
 app.get('/api/listarUsuarios', function(){});
 
-/*app.get('/', function(req, res){
-	console.log(req);
-});*/
 
 //--------------------------------------------------
 
 apiRoutes.use(function(req, res, next) {
   	var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
   	if (token) {
 	    jwt.verify(token, "secret", function(err, decoded) {      
 	      if (err) {
@@ -68,12 +64,14 @@ apiRoutes.use(function(req, res, next) {
 	        req.decoded = decoded;
 
 	        var tienePermiso = false;
+	        var urlPath = req.url.substring(0, req.url.indexOf('?'));
 
 	        for (var i = 0; i < req.decoded.rol.permisos.length; i++){
-        		if (req.decoded.rol.permisos.length[i] === req.url) {
+        		if (req.decoded.rol.permisos[i] === urlPath) {
+        			
             		tienePermiso = true;
         		}
-    		}
+        	}
 
     		if(tienePermiso)
 	        	next();
