@@ -1,5 +1,6 @@
 function registro(db){
 	return function(req, res){
+			console.log("Entra registro");
 			var user = { user : req.body.user,
 				pass : req.body.pass};
 			var users = db.get('users');

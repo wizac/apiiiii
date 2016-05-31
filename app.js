@@ -3,7 +3,7 @@ var jwt = require('jsonwebtoken');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-
+var registro = require('registro');
 
 //var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
@@ -28,7 +28,7 @@ app.post('/registro', function(){});
 
 app.get('/api/compartirDocumento', function(){});
 
-app.get('/api/borrarDocumento', function(){});
+app.get('/api/borrarDocumento', registro(db));
 
 app.post('/api/modificarDocumento', function(){});
 
