@@ -52,7 +52,7 @@ app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
 app.post('/api/modificarUsuario', function(){});
 
-app.get('/api/borrarUsuario', function(){});
+app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
 app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 
