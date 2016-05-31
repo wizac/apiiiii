@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
 var insertarRol = require('./roles');
+var mario = require('./mario');
 
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
@@ -18,7 +19,7 @@ app.use('/api', apiRoutes);
 
 //-----------------------------------------------------------
 
-app.post('/api/insertarDocumento', function(){});
+app.post('/api/insertarDocumento', mario.documentoPut(db));
 
 app.post('/api/insertarTag', tag.put(db));
 
@@ -46,7 +47,7 @@ app.get('/api/listarRol', function(){});
 
 app.post('/api/asignarRol', function(){});
 
-app.post('/api/insertarUsuario', function(){});
+app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
 app.post('/api/modificarUsuario', function(){});
 
