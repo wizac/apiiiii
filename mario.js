@@ -148,6 +148,7 @@ function usuarioPut(db){
 
 function  usuarioDelete(db) {
     return function(req, res) {
+        
         dbUsuario = db.get("usuario");
         
         if("_id" in req.body){
@@ -163,7 +164,7 @@ function  usuarioDelete(db) {
             });
         }else{
             res.json({
-               success : true,
+               success : false,
                message : "Falata el _id" 
             });
         }
