@@ -24,11 +24,11 @@ app.get('/api/listarDocumentos', function(){});
 
 app.post('/autenticacion', autenticacion.login(db));
 
-app.post('/registro', function(){});
+app.post('/registro', registro.registro(db));
 
 app.get('/api/compartirDocumento', function(){});
 
-app.get('/api/borrarDocumento', registro.registro(db));
+app.get('/api/borrarDocumento', function(){});
 
 app.post('/api/modificarDocumento', function(){});
 
