@@ -25,39 +25,24 @@ function insertarRol(db) {
 	}
 }
 
-/* users.find({ user : user.user}, function( err, doc){
-				if(err) throw err;
-				else{
-					console.log(doc);
-					if(doc.length != 0){
-						res.send('Nombre de usuario no disponible.');
-					}
-					else{
-						users.insert(user, function( err, doc){
-							if(err) throw err;
-							else{
-								res.send('Binenvenido ' + user.user + '!!!!');
-							}
-						});
-						
-					}
-				}
-			})*/
 function modificarRol(db) {
 	return function (req, res) {
 
 	}
 }
+
 function borrarRol(db) {
 	return function (req, res) {
 
 	}
 }
+
 function listarRol(db) {
 	return function (req, res) {
 
 	}
 }
+
 function asignarRol(db) {
 	return function (req, res) {
 
