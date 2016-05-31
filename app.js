@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var registro = require('./registro');
 var insertarRol = require('./roles');
 
-//var tag=require('./TagManager.js');
+var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
 
 
@@ -19,7 +19,9 @@ app.use('/api', apiRoutes);
 
 app.post('/api/insertarDocumento', function(){});
 
-app.get('/api/insertarTag', function(){});
+app.post('/api/insertarTag', tag.put(db));
+
+app.post('/api/borrarTag', tag.del(db));
 
 app.get('/api/listarDocumentos', function(){});
 
