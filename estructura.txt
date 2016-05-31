@@ -1,15 +1,14 @@
-usuario{
-	nombre
+﻿usuario{
 	usuario
 	contrasena
-	rol
+	rol(objeto rol)
 	}
 documentos{
 
 	caratula
 	titulo	
 	tags[]
-	dueno[](arreglo de usuarios que pueden ver)
+	dueno(id dueño)
 	archivo (archivo en base64)
 	}
 rol{

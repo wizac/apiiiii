@@ -1,8 +1,9 @@
 function registro(db){
 	return function(req, res){
-			var user = { user : req.body.user,
-				pass : req.body.pass};
-			var users = db.get('users');
+			var user = { user : req.body.usuario,
+				pass : req.body.contrasena,
+			}
+			var users = db.get('usuario');
 			users.find({ user : user.user}, function( err, doc){
 				if(err) throw err;
 				else{
@@ -11,8 +12,13 @@ function registro(db){
 						res.send('Nombre de usuario no disponible.');
 					}
 					else{
-						users.insert(user);
-						res.send('Binenvenido ' + user.user + '!!!!');
+						users.insert(user, function( err, doc){
+							if(err) throw err;
+							else{
+								res.send('Binenvenido ' + user.user + '!!!!');
+							}
+						});
+						
 					}
 				}
 			})
@@ -20,4 +26,4 @@ function registro(db){
 			}	
 }
 
-module.exports = registro;
+module.exports.registro = registro;

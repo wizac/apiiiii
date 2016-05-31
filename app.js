@@ -3,7 +3,12 @@ var jwt = require('jsonwebtoken');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var tag=require('TagManager');
+var registro = require('./registro');
+var insertarRol = require('./roles');
+
+//var tag=require('./TagManager.js');
+var autenticacion = require('./login.js');
+
 
 app.use(bodyParser.json());
 
@@ -14,13 +19,13 @@ app.use('/api', apiRoutes);
 
 app.post('/api/insertarDocumento', function(){});
 
-app.get('/api/insertarTag', tag.put(db));
+app.get('/api/insertarTag', function(){});
 
 app.get('/api/listarDocumentos', function(){});
 
-app.post('/autenticacion', function(){});
+app.post('/autenticacion', autenticacion.login(db));
 
-app.post('/registro', function(){});
+app.post('/registro', registro.registro(db));
 
 app.get('/api/compartirDocumento', function(){});
 
@@ -28,13 +33,15 @@ app.get('/api/borrarDocumento', function(){});
 
 app.post('/api/modificarDocumento', function(){});
 
-app.post('/api/insertarRol', function(){});
+app.post('/api/insertarRol', insertarRol.insertarRol(db));
 
 app.post('/api/modificarRol', function(){});
 
 app.post('/api/borrarRol', function(){});
 
-app.get('/api/listarRoles', function(){});
+app.get('/api/listarRol', function(){});
+
+app.post('/api/asignarRol', function(){});
 
 app.post('/api/insertarUsuario', function(){});
 
@@ -44,15 +51,11 @@ app.get('/api/borrarUsuario', function(){});
 
 app.get('/api/listarUsuarios', function(){});
 
-/*app.get('/', function(req, res){
-	console.log(req);
-});*/
 
 //--------------------------------------------------
 
 apiRoutes.use(function(req, res, next) {
   	var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
   	if (token) {
 	    jwt.verify(token, "secret", function(err, decoded) {      
 	      if (err) {
@@ -62,12 +65,14 @@ apiRoutes.use(function(req, res, next) {
 	        req.decoded = decoded;
 
 	        var tienePermiso = false;
-
+	        var urlPath = req.url.substring(0, req.url.indexOf('?'));
+	        
 	        for (var i = 0; i < req.decoded.rol.permisos.length; i++){
-        		if (req.decoded.rol.permisos.length[i] === req.url) {
+        		if (req.decoded.rol.permisos[i] === urlPath) {
+        			
             		tienePermiso = true;
         		}
-    		}
+        	}
 
     		if(tienePermiso)
 	        	next();
