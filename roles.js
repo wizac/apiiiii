@@ -78,7 +78,16 @@ function borrarRol(db) {
 
 function listarRol(db) {
 	return function (req, res) {
-
+		var rol = db.get('rol');
+		for (var i in req.body) {
+			if (req.body.hasOwnProperty(i)) {
+				req.body[i] = new RegExp("^" + req.body[i]);
+			}
+		}
+		rol.find(req.body, function (err, data) {
+			if (err) throw err;
+			res.json(data);
+		});
 	}
 }
 
