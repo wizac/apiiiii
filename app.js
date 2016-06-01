@@ -42,7 +42,7 @@ app.post('/api/insertarRol', roles.insertarRol(db));
 
 app.post('/api/modificarRol', roles.modificarRol(db));
 
-app.post('/api/borrarRol', function(){});
+app.post('/api/borrarRol', roles.borrarRol(db));
 
 app.get('/api/listarRol', function(){});
 

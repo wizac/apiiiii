@@ -36,16 +36,15 @@ function modificarRol(db) {
 			if (err) throw err;
 			else {
 				if (doc.length != 0) {
-					rol.update({"_id":nuevoRol._id},{"nombre": nuevoRol.nombre, "permisos": nuevoRol.permisos}, function(err, doc){
-						if(err) throw err;
-						else{
+					rol.update({ "_id": nuevoRol._id }, { "nombre": nuevoRol.nombre, "permisos": nuevoRol.permisos }, function (err, doc) {
+						if (err) throw err;
+						else {
 							res.send("El rol se modifico con éxito");
 						}
 					});
-					
 				}
 				else {
-					res.send("No se registra ningun rol con ese nombre.");
+					res.send("No se registra dicho rol.");
 				}
 			}
 		});
@@ -54,7 +53,26 @@ function modificarRol(db) {
 
 function borrarRol(db) {
 	return function (req, res) {
-
+		var rol = db.get('rol');
+		var nuevoRol = {
+			"_id": req.body._id,
+		};
+		rol.find({ _id: nuevoRol._id }, function (err, doc) {
+			if (err) throw err;
+			else {
+				if (doc.length != 0) {
+					rol.remove({ "_id": nuevoRol._id }, function (err, doc) {
+						if (err) throw err;
+						else {
+							res.send("El rol se elimino con éxito");
+						}
+					});
+				}
+				else {
+					res.send("No se registra dicho rol.");
+				}
+			}
+		});
 	}
 }
 
