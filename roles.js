@@ -35,7 +35,7 @@ function modificarRol(db) {
 			if (err) throw err;
 			else {
 				if (doc.length != 0) {
-					rol.update({"nombre":nuevoRol.nombre},{"permisos": nuevoRol.servicios});
+					rol.update({"nombre":nuevoRol.nombre},{"permisos": nuevoRol.permisos});
 				}
 				else {
 					res.send("No se registra ningun rol con ese nombre.");
