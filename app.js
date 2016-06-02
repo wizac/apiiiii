@@ -4,12 +4,18 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
+<<<<<<< HEAD
 var insertarRol = require('./roles');
 var mario = require('./mario');
 var tD = require("./transferirDocumento");
 var eD = require("./eliminaDocumento");
 var aD = require("./actualizaDocumento");
+=======
+var roles = require('./roles');
+>>>>>>> 34f16dc08066bada636f9f409da32bc48fe24d52
 
+var mario = require('./mario');
+var upd = require('./updUser');
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
 var listar = require('./listarDocumentosYUsuarios.js');
@@ -40,19 +46,19 @@ app.get('/api/eliminaDocumento', eD.eliminaDocumento(db));
 
 app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
 
-app.post('/api/insertarRol', insertarRol.insertarRol(db));
+app.post('/api/insertarRol', roles.insertarRol(db));
 
-app.post('/api/modificarRol', function(){});
+app.post('/api/modificarRol', roles.modificarRol(db));
 
-app.post('/api/borrarRol', function(){});
+app.post('/api/borrarRol', roles.borrarRol(db));
 
-app.get('/api/listarRol', function(){});
+app.post('/api/listarRol', roles.listarRol(db));
 
-app.post('/api/asignarRol', function(){});
+app.post('/api/asignarRol', roles.asignarRol(db));
 
 app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
-app.post('/api/modificarUsuario', function(){});
+app.post('/api/modificarUsuario', upd.upd(db));
 
 app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
