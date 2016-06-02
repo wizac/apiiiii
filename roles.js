@@ -113,14 +113,25 @@ function listarRol(db) {
 //el usuario de front-end tendrá que renombrar el id de usuario como u_ip y el de rol como r_ip
 function asignarRol(db) {
 	return function (req, res) {
+		var usuario = db.get("usuario");
+		var rol = db.get("rol");
 		var u_id = req.body.u_id;
 		var r_id = req.body.r_id;
-		db.get('rol').find({ "_id": r_id }, function (docRol) {
-			db.get('usuario').find({ "_id": u_id }, function (docUsuario) {
-				db.get('usuario').update({ "_id": docUsuario._id, "usuario": docUsuario.usuario, "contrasena": docUsuario.contrasena, "rol": docRol }, function (err) {
+		rol.findOne({ "_id": r_id }, function (err, docRol) {
+			if (err) throw err;
+			else {
+				usuario.findOne({ "_id": u_id }, function (err, docUsuario) {
 					if (err) throw err;
+					else {
+						usuario.update({ "_id": docUsuario._id},{"usuario": docUsuario.usuario, "contrasena": docUsuario.contrasena, "rol": docRol }, function (err) {
+							if (err) throw err;
+							else{
+								res.send("El rol "+docRol.nombre+" fue asignado a "+docUsuario.usuario );
+							}
+						});
+					}
 				});
-			});
+			}
 		});
 	}
 }
