@@ -25,4 +25,4 @@ function transferirDocumento(db)
 	}
 }
 
-export.transferirDocumento = transferirDocumento;
+exports.transferirDocumento = transferirDocumento;
