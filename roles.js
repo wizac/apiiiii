@@ -27,6 +27,7 @@ function insertarRol(db) {
 function modificarRol(db) {
 	return function (req, res) {
 		var rol = db.get('rol');
+		var usuario = db.get('usuario');
 		var nuevoRol = {
 			"_id": req.body._id,
 			"nombre": req.body.nombre,
@@ -41,9 +42,11 @@ function modificarRol(db) {
 						else {
 							db.collections.usuario.find({}, { stream: true }).each(function (docx) {
 								if (docx.rol != undefined) {
+									console.log("control 3");
 									if (docx.rol._id.localeCompare(nuevoRol._id) == 0) {
 										db.collections.usuario.update({ "_id": docx._id }, { "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": nuevoRol }, function (err) {
 											if (err) throw err;
+											console.log("control 4");
 										});
 									}
 								}
