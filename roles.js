@@ -32,13 +32,22 @@ function modificarRol(db) {
 			"nombre": req.body.nombre,
 			"permisos": req.body.permisos
 		};
-		rol.find({ _id: nuevoRol._id }, function (err, doc) {
+		rol.find({ _id: nuevoRol._id }, function (err, doc1) {
 			if (err) throw err;
 			else {
-				if (doc.length != 0) {
-					rol.update({ "_id": nuevoRol._id }, { "nombre": nuevoRol.nombre, "permisos": nuevoRol.permisos }, function (err, doc) {
+				if (doc1.length != 0) {
+					rol.update({ "_id": doc1._id }, { "nombre": doc1.nombre, "permisos": doc1.permisos }, function (err, doc) {
 						if (err) throw err;
 						else {
+							db.collections.usuario.find({}, { stream: true }).each(function (docx) {
+								if (docx.rol != undefined) {
+									if (docx.rol._id.localeCompare(nuevoRol._id) == 0) {
+										db.collections.usuario.update({ "_id": docx._id }, { "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": nuevoRol }, function (err) {
+											if (err) throw err;
+										});
+									}
+								}
+							});
 							res.send("El rol se modifico con éxito");
 						}
 					});
@@ -65,10 +74,7 @@ function borrarRol(db) {
 				if (doc1.length != 0) {
 					//elimina inconsistencias de la base
 					db.collections.usuario.find({}).each(function (doc) {
-						console.log(doc.rol._id + " id objeto");
-						console.log(nuevoRol._id + " id postman");
 						if (doc.rol._id.localeCompare(nuevoRol._id) == 0) {
-							console.log("entra en el if");
 							var user = {
 								"_id": doc._id,
 								"usuario": doc.usuario,
