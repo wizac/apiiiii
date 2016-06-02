@@ -51,16 +51,17 @@ function documentoPut(db) {
         }
         
         if(completo){
-            documento.dueno = req.decode._id;
+            documento.dueno = req.decoded.id;
             dbDocumento.insert(documento,function(err, doc){
                 if(err){                  
                         throw err;
                 }else{
+                    
                     res.json({
                         success : true,
                         message : "Se agrego a la base correctamente",
                         documento : doc
-                    })
+                    });
                 }
                 
             });
