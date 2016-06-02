@@ -120,13 +120,21 @@ function listarRol(db) {
 	}
 }
 
+//el usuario de front-end tendrá que renombrar el ip de usuario como u_ip y el de rol como r_ip
 function asignarRol(db) {
 	return function (req, res) {
-		var rol = db.get("rol");
-		var usuario = db.get("usuario");
-
+		var u_id = req.body.u_id;
+		var r_id = req.body.r_id;
+		db.collections.rol.find({"_id":r_id},function(doc){
+			db.collections.usuario.find({"_id":u_id}, function(docx){
+			db.collections.usuario.update({"_id":docx._id, "usuario":docx.usuario, "contrasena":docx.contrasena, "rol":doc}, function(err){
+				if(err)throw err;
+			});
+		});
+		});
 	}
 }
+
 module.exports.insertarRol = insertarRol;
 module.exports.modificarRol = modificarRol;
 module.exports.borrarRol = borrarRol;
