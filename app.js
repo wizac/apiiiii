@@ -4,10 +4,14 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
-var roles = require('./roles');
 
 var mario = require('./mario');
+var tD = require("./transferirDocumento");
+var eD = require("./eliminaDocumento");
+var aD = require("./actualizaDocumento");
 
+var mario = require('./mario');
+var upd = require('./updUser');
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
 var listar = require('./listarDocumentosYUsuarios.js');
@@ -32,11 +36,11 @@ app.post('/autenticacion', autenticacion.login(db));
 
 app.post('/registro', registro.registro(db));
 
-app.get('/api/compartirDocumento', function(){});
+app.get('/api/transferirDocumento', tD.transferirDocumento(db));
 
-app.get('/api/borrarDocumento', function(){});
+app.get('/api/eliminaDocumento', eD.eliminaDocumento(db));
 
-app.post('/api/modificarDocumento', function(){});
+app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
 
 app.post('/api/insertarRol', roles.insertarRol(db));
 
@@ -50,7 +54,7 @@ app.post('/api/asignarRol', roles.asignarRol(db));
 
 app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
-app.post('/api/modificarUsuario', function(){});
+app.post('/api/modificarUsuario', upd.upd(db));
 
 app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
