@@ -35,13 +35,24 @@ function modificarRol(db) {
 					rol.update({ "_id": req.body._id }, { "nombre": req.body.nombre, "permisos": req.body.permisos }, function (err) {
 						if (err) throw err;
 						else {
-							usuario.find({}, { stream: true }).each(function (docx) {
-								if (docx.rol != undefined) {
-									if (docx.rol._id.localeCompare(req.body._id) == 0) {
-										usuario.update({ "_id": docx._id }, { "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": nuevoRol }, function (err) {
+							usuario.find({}, { stream: true }).each(function (docUsuario) {
+								if ("rol" in docUsuario && "_id" in docUsuario.rol) {
+									console.log("tiene rol");
+									console.log(docUsuario.rol._id);
+									if (docUsuario.rol._id.localeCompare(req.body._id) == 0) {
+										rol.find({ "_id": req.body._id }, function (err, docr) {
 											if (err) throw err;
-											console.log("actualizo " + docx.usuario);
+											else {
+												console.log(docr);
+												usuario.update({ "_id": docUsuario._id }, { "usuario": docUsuario.usuario, "contrasena": docUsuario.contrasena, "rol": docr }, function (err) {
+													if (err) throw err;
+													console.log("actualizo " + docUsuario.usuario);
+												});
+											}
 										});
+									}
+									else{
+										console.log("no tiene rol");
 									}
 								}
 							});
@@ -106,14 +117,14 @@ function listarRol(db) {
 	}
 }
 
-//el usuario de front-end tendrá que renombrar el ip de usuario como u_ip y el de rol como r_ip
+//el usuario de front-end tendrá que renombrar el id de usuario como u_ip y el de rol como r_ip
 function asignarRol(db) {
 	return function (req, res) {
 		var u_id = req.body.u_id;
 		var r_id = req.body.r_id;
-		db.collections.rol.find({ "_id": r_id }, function (doc) {
-			db.collections.usuario.find({ "_id": u_id }, function (docx) {
-				db.collections.usuario.update({ "_id": docx._id, "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": doc }, function (err) {
+		db.get('rol').find({ "_id": r_id }, function (docRol) {
+			db.get('usuario').find({ "_id": u_id }, function (docUsuario) {
+				db.get('usuario').update({ "_id": docUsuario._id, "usuario": docUsuario.usuario, "contrasena": docUsuario.contrasena, "rol": docRol }, function (err) {
 					if (err) throw err;
 				});
 			});
