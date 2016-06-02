@@ -10,7 +10,7 @@ function eliminaDocumento(db)
 				throw err;
 			}
 			else{
-				res.send('Se elimino el documento ' con id '+IdDocumento);
+				res.send('Se elimino el documento con id '+IdDocumento);
 			}	
 		});
 	}
