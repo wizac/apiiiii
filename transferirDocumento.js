@@ -11,7 +11,7 @@ function transferirDocumento(db)
 		}
 		else{
 			var IdDocumento = docs._id;
-			documentos.update({_id:IdDocumento},{"$set":{dueno:IdUsuarioNuevo}},function (err) {
+			documentos.update({_id:IdDocumento},{$set:{dueno:IdUsuarioNuevo}},function (err) {
 			if (err) throw err;
 			else res.send('Se transfirio el documento '+req.params.documentos+' con id '+IdDocumento + ' al usuario con id' + IdUsuarioNuevo);
 	        });
