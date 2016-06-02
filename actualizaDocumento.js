@@ -5,7 +5,7 @@ function actualizaDocumento(db)
 		var documentos = db.get("documentos");
 		var IdDocumento = req.body.idDocumento; //pasar por post el id del documento con el campo idDocumento
 		var actualizacion = req.body;
-		delete.actualizacion.idDocumento;
+		delete actualizacion.idDocumento;
 		
 		documentos.update({_id:IdDocumento},{$set:actualizacion},function (err) {
 			if (err){

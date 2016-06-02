@@ -36,9 +36,9 @@ app.post('/autenticacion', autenticacion.login(db));
 
 app.post('/registro', registro.registro(db));
 
-app.get('/api/transferirDocumento', tD.transferirDocumento(db));
+app.post('/api/transferirDocumento', tD.transferirDocumento(db));
 
-app.get('/api/eliminaDocumento', eD.eliminaDocumento(db));
+app.post('/api/eliminaDocumento', eD.eliminaDocumento(db));
 
 app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
 
@@ -66,7 +66,7 @@ app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 apiRoutes.use(function(req, res, next) {
   	var token = req.body.token || req.query.token || req.headers['x-access-token'];
   	if (token) {
-	    jwt.verify(token, "secret", function(err, decoded) {      
+	    jwt.verify(token, "secret", function(err, decoded) {
 	      if (err) {
 	      	console.log(err);
 	        return res.json({ success: false, mensaje: 'Fallo la autenticacion del token.' });
@@ -75,10 +75,10 @@ apiRoutes.use(function(req, res, next) {
 
 	        var tienePermiso = false;
 	        var urlPath = req.url.substring(0, req.url.indexOf('?'));
-	        
+
 	        for (var i = 0; i < req.decoded.rol.permisos.length; i++){
         		if (req.decoded.rol.permisos[i] === urlPath) {
-        			
+
             		tienePermiso = true;
         		}
         	}
@@ -86,13 +86,13 @@ apiRoutes.use(function(req, res, next) {
     		if(tienePermiso)
 	        	next();
 	        else
-	        	return res.json({ success: false, mensaje: 'Usted no tiene permiso de acceso.' });    
+	        	return res.json({ success: false, mensaje: 'Usted no tiene permiso de acceso.' });
 	      }
     });
   	}else{
-	    return res.status(403).send({ 
-	        success: false, 
-	        message: 'No se proporciono el token.' 
+	    return res.status(403).send({
+	        success: false,
+	        message: 'No se proporciono el token.'
 	    });
   	}
 });
