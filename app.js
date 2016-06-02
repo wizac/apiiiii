@@ -4,15 +4,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
-<<<<<<< HEAD
-var insertarRol = require('./roles');
+
 var mario = require('./mario');
 var tD = require("./transferirDocumento");
 var eD = require("./eliminaDocumento");
 var aD = require("./actualizaDocumento");
-=======
-var roles = require('./roles');
->>>>>>> 34f16dc08066bada636f9f409da32bc48fe24d52
 
 var mario = require('./mario');
 var upd = require('./updUser');
