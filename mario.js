@@ -1,5 +1,17 @@
 
 //Insertar documentos
+/*
+documentos{
+
+	caratula
+	titulo	
+	tags[]
+	dueno(id dueño)
+	archivo (archivo en base64)
+	}
+    
+    mientras manden un json con esos parametro anda
+*/
 function documentoPut(db) {
     return function (req, res) {
         var dbDocumento = db.get("documentos");
@@ -38,24 +50,18 @@ function documentoPut(db) {
             falta.archivo = false;
         }
         
-        if("dueno" in req.body){
-            documento.dueno = req.body.dueno;
-            falta.dueno = true;
-        }else{
-            completo = false,
-            falta.dueno = false
-        }
-                
         if(completo){
+            documento.dueno = req.decoded.id;
             dbDocumento.insert(documento,function(err, doc){
                 if(err){                  
                         throw err;
                 }else{
+                    
                     res.json({
                         success : true,
                         message : "Se agrego a la base correctamente",
                         documento : doc
-                    })
+                    });
                 }
                 
             });

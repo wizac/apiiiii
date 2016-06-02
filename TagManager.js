@@ -5,12 +5,11 @@ module.exports={
 		var usuarios = db.get('usuarios');
 		var colleccion = db.get('documentos');
 		console.log("Inserting: ");
-		console.log(req.body);
+		console.log(req.body.tags);
 		var idusuario=req.decoded.id;
 		colleccion.find({dueno:idusuario}, function(err,data){
 			if (err) 
 				throw err;
-			console.log(data);
 	//ver si esto me deja donde quiero
 			colleccion.find({_id:req.body._id}, function(err,data){
 				if (err) 
@@ -19,14 +18,14 @@ module.exports={
 				{
 					colleccion.update({_id:req.body._id},{"$push" : {tags:req.body.tags}}, function(err){
 					if (err) 
-						throw err;
+						throw err;	
 					});
 				}
 				
 				
 				
 			});
-		res.json(0);
+		res.json("Tag insertado con exito");
 		})
 	}
 }, 
@@ -36,7 +35,7 @@ module.exports={
 			var usuarios = db.get('usuarios');
 			var colleccion = db.get('documentos');
 			console.log("Deleting tag: ");
-			console.log(req.body);
+			console.log(req.body.tags);
 			var idusuario=req.decoded.id;
 			colleccion.find({dueno:idusuario}, function(err,data){
 			if (err) 
@@ -50,6 +49,8 @@ module.exports={
 					});
 				});
 			});
+
+			res.json("Tag borrado con exito");
 		}
 
 	
