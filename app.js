@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var registro = require('./registro');
-
+var roles = require('./roles');
 var mario = require('./mario');
 var tD = require("./transferirDocumento");
 var eD = require("./eliminaDocumento");
