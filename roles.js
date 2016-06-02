@@ -54,17 +54,40 @@ function modificarRol(db) {
 function borrarRol(db) {
 	return function (req, res) {
 		var rol = db.get('rol');
+		var usuario = db.get('usuario');
 		var nuevoRol = {
 			"_id": req.body._id,
 		};
-		rol.find({ _id: nuevoRol._id }, function (err, doc) {
+
+		rol.find({ "_id": req.body._id }, function (err, doc1) {
 			if (err) throw err;
 			else {
-				if (doc.length != 0) {
-					rol.remove({ "_id": nuevoRol._id }, function (err, doc) {
+				if (doc1.length != 0) {
+					//elimina inconsistencias de la base
+					db.collections.usuario.find({}).each(function (doc) {
+						console.log(doc.rol._id + " id objeto");
+						console.log(nuevoRol._id + " id postman");
+						if (doc.rol._id.localeCompare(nuevoRol._id) == 0) {
+							console.log("entra en el if");
+							var user = {
+								"_id": doc._id,
+								"usuario": doc.usuario,
+								"contrasena": doc.contrasena
+							}
+							db.collections.usuario.update({ "_id": user._id }, { "usuario": user.usuario, "contrasena": user.contrasena }, function (err, doc) {
+								if (err) throw err;
+								else {
+									console.log("se borro el rol de" + user.usuario);
+								}
+							});
+						}
+					});
+
+					//borra el rol de la base definitivamente
+					rol.remove(nuevoRol, function (err, doc) {
 						if (err) throw err;
 						else {
-							res.send("El rol se elimino con éxito");
+							res.send("El rol se elimino con éxito.");
 						}
 					});
 				}
@@ -93,6 +116,8 @@ function listarRol(db) {
 
 function asignarRol(db) {
 	return function (req, res) {
+		var rol = db.get("rol");
+		var usuario = db.get("usuario");
 
 	}
 }
