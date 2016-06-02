@@ -28,32 +28,26 @@ function modificarRol(db) {
 	return function (req, res) {
 		var rol = db.get('rol');
 		var usuario = db.get('usuario');
-		var nuevoRol = {
-			"_id": req.body._id,
-			"nombre": req.body.nombre,
-			"permisos": req.body.permisos
-		};
-		rol.find({ _id: nuevoRol._id }, function (err, doc1) {
+		rol.find({ _id: req.body._id }, function (err, doc1) {
 			if (err) throw err;
 			else {
 				if (doc1.length != 0) {
-					rol.update({ "_id": doc1._id }, { "nombre": doc1.nombre, "permisos": doc1.permisos }, function (err, doc) {
+					rol.update({ "_id": req.body._id }, { "nombre": req.body.nombre, "permisos": req.body.permisos }, function (err) {
 						if (err) throw err;
 						else {
-							db.collections.usuario.find({}, { stream: true }).each(function (docx) {
+							usuario.find({}, { stream: true }).each(function (docx) {
 								if (docx.rol != undefined) {
-									console.log("control 3");
-									if (docx.rol._id.localeCompare(nuevoRol._id) == 0) {
-										db.collections.usuario.update({ "_id": docx._id }, { "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": nuevoRol }, function (err) {
+									if (docx.rol._id.localeCompare(req.body._id) == 0) {
+										usuario.update({ "_id": docx._id }, { "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": nuevoRol }, function (err) {
 											if (err) throw err;
-											console.log("control 4");
+											console.log("actualizo " + docx.usuario);
 										});
 									}
 								}
 							});
-							res.send("El rol se modifico con éxito");
 						}
 					});
+					res.send("El rol se modifico con éxito");
 				}
 				else {
 					res.send("No se registra dicho rol.");
@@ -67,33 +61,22 @@ function borrarRol(db) {
 	return function (req, res) {
 		var rol = db.get('rol');
 		var usuario = db.get('usuario');
-		var nuevoRol = {
-			"_id": req.body._id,
-		};
-
 		rol.find({ "_id": req.body._id }, function (err, doc1) {
 			if (err) throw err;
 			else {
 				if (doc1.length != 0) {
 					//elimina inconsistencias de la base
-					db.collections.usuario.find({}).each(function (doc) {
-						if (doc.rol._id.localeCompare(nuevoRol._id) == 0) {
-							var user = {
-								"_id": doc._id,
-								"usuario": doc.usuario,
-								"contrasena": doc.contrasena
+					usuario.find({}).each(function (doc) {
+						if (doc.rol != undefined) {
+							if (doc.rol._id.localeCompare(req.body._id) == 0) {
+								usuario.update({ "_id": doc._id }, { "usuario": doc.usuario, "contrasena": doc.contrasena }, function (err, doc) {
+									if (err) throw err;
+								});
 							}
-							db.collections.usuario.update({ "_id": user._id }, { "usuario": user.usuario, "contrasena": user.contrasena }, function (err, doc) {
-								if (err) throw err;
-								else {
-									console.log("se borro el rol de" + user.usuario);
-								}
-							});
 						}
 					});
-
 					//borra el rol de la base definitivamente
-					rol.remove(nuevoRol, function (err, doc) {
+					rol.remove({ "_id": req.body._id }, function (err) {
 						if (err) throw err;
 						else {
 							res.send("El rol se elimino con éxito.");
@@ -128,12 +111,12 @@ function asignarRol(db) {
 	return function (req, res) {
 		var u_id = req.body.u_id;
 		var r_id = req.body.r_id;
-		db.collections.rol.find({"_id":r_id},function(doc){
-			db.collections.usuario.find({"_id":u_id}, function(docx){
-			db.collections.usuario.update({"_id":docx._id, "usuario":docx.usuario, "contrasena":docx.contrasena, "rol":doc}, function(err){
-				if(err)throw err;
+		db.collections.rol.find({ "_id": r_id }, function (doc) {
+			db.collections.usuario.find({ "_id": u_id }, function (docx) {
+				db.collections.usuario.update({ "_id": docx._id, "usuario": docx.usuario, "contrasena": docx.contrasena, "rol": doc }, function (err) {
+					if (err) throw err;
+				});
 			});
-		});
 		});
 	}
 }
