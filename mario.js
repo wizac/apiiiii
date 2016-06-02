@@ -177,17 +177,6 @@ function  usuarioDelete(db) {
     }
 }
 
-/*
-rol{
-	nombre
-	permisos[]
-	}
-*/
-
-function estructuraRol(){
-    
-}
-
 exports.documentoPut = documentoPut;
 exports.usuarioPut = usuarioPut;
 exports.usuarioDelete = usuarioDelete;
