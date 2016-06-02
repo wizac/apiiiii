@@ -7,7 +7,7 @@ var registro = require('./registro');
 var roles = require('./roles');
 
 var mario = require('./mario');
-
+var upd = require('./updUser');
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
 var listar = require('./listarDocumentosYUsuarios.js');
@@ -50,7 +50,7 @@ app.post('/api/asignarRol', roles.asignarRol(db));
 
 app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
-app.post('/api/modificarUsuario', function(){});
+app.post('/api/modificarUsuario', upd.upd(db));
 
 app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
