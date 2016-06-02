@@ -46,7 +46,7 @@ app.post('/api/borrarRol', roles.borrarRol(db));
 
 app.post('/api/listarRol', roles.listarRol(db));
 
-app.post('/api/asignarRol', function(){});
+app.post('/api/asignarRol', roles.asignarRol(db));
 
 app.post('/api/insertarUsuario', mario.usuarioPut(db));
 
