@@ -28,31 +28,24 @@ function modificarRol(db) {
 	return function (req, res) {
 		var rol = db.get('rol');
 		var usuario = db.get('usuario');
-		rol.find({ _id: req.body._id }, function (err, doc1) {
+		rol.findOne({ _id: req.body._id }, function (err, docRol) {
 			if (err) throw err;
 			else {
-				if (doc1.length != 0) {
+				if (docRol) {
 					rol.update({ "_id": req.body._id }, { "nombre": req.body.nombre, "permisos": req.body.permisos }, function (err) {
 						if (err) throw err;
 						else {
-							usuario.find({}, { stream: true }).each(function (docUsuario) {
-								if ("rol" in docUsuario && "_id" in docUsuario.rol) {
-									console.log("tiene rol");
-									console.log(docUsuario.rol._id);
-									if (docUsuario.rol._id.localeCompare(req.body._id) == 0) {
-										rol.find({ "_id": req.body._id }, function (err, docr) {
+							usuario.find({}).each(function (docUsuario) {
+								if ("rol" in docUsuario) {
+									if (docUsuario.rol._id == req.body._id) {
+										rol.find({ "_id": req.body._id }, function (err, docRol2) {
 											if (err) throw err;
 											else {
-												console.log(docr);
-												usuario.update({ "_id": docUsuario._id }, { "usuario": docUsuario.usuario, "contrasena": docUsuario.contrasena, "rol": docr }, function (err) {
+												usuario.update({ "_id": docUsuario._id }, { "usuario": docUsuario.usuario, "contrasena": docUsuario.contrasena, "rol": docRol2[0] }, function (err) {
 													if (err) throw err;
-													console.log("actualizo " + docUsuario.usuario);
 												});
 											}
 										});
-									}
-									else{
-										console.log("no tiene rol");
 									}
 								}
 							});
