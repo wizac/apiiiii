@@ -38,6 +38,8 @@ app.post('/registro', registro.registro(db));
 
 app.post('/api/compartirDocumento', tD.transferirDocumento(db));
 
+app.post('/api/transferirDocumentoAdmin', tD.transferirDocumentoAdmin(db));
+
 app.post('/api/borrarDocumentoAdmin', eD.eliminaDocumentoAdmin(db));
 
 app.post('/api/borrarDocumento', eD.eliminaDocumento(db));
@@ -61,8 +63,6 @@ app.post('/api/modificarUsuario', upd.upd(db));
 app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
 app.post('/api/listarUsuarios', listar.listarUsuarios(db));
-
-app.post('/api/transferirDocumentoAdmin', td.transferirDocumentoAdmin(db));
 
 
 //--------------------------------------------------
