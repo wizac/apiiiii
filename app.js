@@ -36,11 +36,11 @@ app.post('/autenticacion', autenticacion.login(db));
 
 app.post('/registro', registro.registro(db));
 
-app.post('/api/transferirDocumento', tD.transferirDocumento(db));
+app.post('/api/compartirDocumento', tD.transferirDocumento(db));
 
-app.post('/api/eliminaDocumento', eD.eliminaDocumento(db));
+app.post('/api/borrarDocumento', eD.eliminaDocumento(db));
 
-app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
+app.post('/api/modificarDocumento', aD.actualizaDocumento(db));
 
 app.post('/api/insertarRol', roles.insertarRol(db));
 
