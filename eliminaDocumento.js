@@ -1,4 +1,4 @@
-function eliminaDocumento(db) {
+function eliminaDocumentoAdmin(db) {
 	return function (req, res) {
 		var documentos = db.get("documentos");
 		documentos.remove({ _id: req.body._id }, function (err) {
@@ -19,4 +19,27 @@ function eliminaDocumento(db) {
 		});
 	}
 }
+
+function eliminaDocumento(db) {
+	return function (req, res) {
+		var documentos = db.get("documentos");
+		var id_user = req.decoded.id;
+		documentos.findOne({_id : req.body._id, dueno : id_user}, function(err, doc){
+			if(err)throw err;
+			if(doc){
+				documentos.remove({ _id: req.body._id}, function(err){
+					if(err) throw err;
+					else{
+						res.send("El documento se eliminó con éxito.");
+					}
+				});
+			}
+			else{
+				res.send("No se registra ese documento en su cuenta.");
+			}
+		});
+	}
+}
+
+exports.eliminaDocumento = eliminaDocumento;
 exports.eliminaDocumentoAdmin = eliminaDocumentoAdmin;
