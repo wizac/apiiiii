@@ -7,15 +7,24 @@ function actualizaDocumento(db)
 		var actualizacion = req.body;
 		delete actualizacion.idDocumento;
 		
-		documentos.update({_id:IdDocumento},{$set:actualizacion},function (err) {
+		documentos.findOne({_id:IdDocumento}, function(err, doc){
+		if (err){
+			throw err;
+		}
+		if(!doc){
+			res.send('El documento con el id: '+IdDocumento+" no existe");
+		}
+		else{
+			documentos.update({_id:IdDocumento},{$set:actualizacion},function (err) {
 			if (err){
 				throw err;
 			}
 			else{ 
 			    res.send('Se actualizo el documento con id '+IdDocumento);
 			}
+			});
+		}
 		});
-	}
 }
 
 exports.actualizaDocumento = actualizaDocumento;
