@@ -35,15 +35,24 @@ function transferirDocumentoAdmin(db)
 		IdDocumento = req.body.idDocumento; // pasar por post el id del documento con el campo idDocumento
 		var IdUsuarioNuevo = req.body.idUsuario; // pasar por post el id del usuario al que se le dara el documento con el campo idUsuario
 
-		documentos.update({_id:IdDocumento},{$set:{dueno:IdUsuarioNuevo}},function (err) {
+		documentos.findOne({_id:IdDocumento, dueno:req.decoded.id}, function(err, doc){
 			if (err){
 				throw err;
 			}
-			else{
-				res.send('Se transfirio el documento '+' con id '+IdDocumento + ' al usuario con id' + IdUsuarioNuevo);
+			if(!doc){
+				res.send('El documento no existe');
+			}
+			else {
+				documentos.update({_id:IdDocumento},{$set:{dueno:IdUsuarioNuevo}},function (err) {
+					if (err){
+						throw err;
+					}
+					else{
+						res.send('Se transfirio el documento '+' con id '+IdDocumento + ' al usuario con id' + IdUsuarioNuevo);
+					}
+				});
 			}
 		});
-
 	}
 }
 
