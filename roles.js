@@ -110,7 +110,7 @@ function listarRol(db) {
 	}
 }
 
-//el usuario de front-end tendrá que renombrar el id de usuario como u_ip y el de rol como r_ip
+//el usuario tendrá que renombrar el id de usuario como u_ip y el de rol como r_ip
 function asignarRol(db) {
 	return function (req, res) {
 		var usuario = db.get("usuario");
