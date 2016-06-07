@@ -20,12 +20,16 @@ module.exports={
 					if (err) 
 						throw err;	
 					});
+					res.json("Tag insertado con exito");
+				}
+				else {
+					res.json("No se inserto el tag");
 				}
 				
 				
 				
 			});
-		res.json("Tag insertado con exito");
+		
 		})
 	}
 }, 
