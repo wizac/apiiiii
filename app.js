@@ -38,7 +38,7 @@ app.post('/registro', registro.registro(db));
 
 app.post('/api/compartirDocumento', tD.transferirDocumento(db));
 
-app.post('/api/borrarDocumento', eD.eliminaDocumento(db));
+app.post('/api/borrarDocumentoAdmin', eD.eliminaDocumentoAdmin(db));
 
 app.post('/api/modificarDocumento', aD.actualizaDocumento(db));
 

@@ -1,19 +1,22 @@
-function eliminaDocumento(db)
-{
+function eliminaDocumento(db) {
 	return function (req, res) {
-		console.log("id del documento que se elimina : " + req.body._id);
 		var documentos = db.get("documentos");
-		var IdDocumento = req.body.idDocumento; // pasar por post el id del documento con el campo idDocumento
-		
-		documentos.remove({_id:IdDocumento}, function (err) {
-			if (err){
+		documentos.remove({ _id: req.body._id }, function (err) {
+			if (err) {
 				throw err;
 			}
-			else{
-				res.send('Se elimino el documento con id '+IdDocumento);
-			}	
+			else {
+				documentos.findOne({ _id: req.body._id }, function(err, doc){
+					if(err) throw err;					
+					if(doc) {
+						res.send("Fallo la eliminación del documento id: " + req.body._id);
+					}
+					else{
+						res.send('Se elimino el documento con id: ' + req.body._id);
+					}
+				});
+			}
 		});
 	}
 }
-
-exports.eliminaDocumento = eliminaDocumento;
+exports.eliminaDocumentoAdmin = eliminaDocumentoAdmin;
