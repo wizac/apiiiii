@@ -60,6 +60,8 @@ app.post('/api/borrarUsuario', mario.usuarioDelete(db));
 
 app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 
+app.post('/api/transferirDocumentoAdmin', td.transferirDocumentoAdmin(db));
+
 
 //--------------------------------------------------
 
