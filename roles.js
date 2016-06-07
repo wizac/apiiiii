@@ -65,14 +65,14 @@ function borrarRol(db) {
 	return function (req, res) {
 		var rol = db.get('rol');
 		var usuario = db.get('usuario');
-		rol.find({ "_id": req.body._id }, function (err, doc1) {
+		rol.findOne({ "_id": req.body._id }, function (err, doc1) {
 			if (err) throw err;
 			else {
-				if (doc1.length != 0) {
+				if (doc1) {
 					//elimina inconsistencias de la base
 					usuario.find({}).each(function (doc) {
-						if (doc.rol != undefined) {
-							if (doc.rol._id.localeCompare(req.body._id) == 0) {
+						if (doc.rol) {
+							if (doc.rol._id == req.body._id) {
 								usuario.update({ "_id": doc._id }, { "usuario": doc.usuario, "contrasena": doc.contrasena }, function (err, doc) {
 									if (err) throw err;
 								});
