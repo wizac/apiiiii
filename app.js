@@ -81,7 +81,7 @@ apiRoutes.use(function(req, res, next) {
 	        var urlPath = req.url.substring(0, req.url.indexOf('?'));
 	        
 			if('rol' in req.decoded){
-				if(myArray instanceof Array){
+				if(req.decoded.rol.permisos instanceof Array){
 					for (var i = 0; i < req.decoded.rol.permisos.length; i++){
 						if (req.decoded.rol.permisos[i] === urlPath) {
 
