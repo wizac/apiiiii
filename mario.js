@@ -90,7 +90,7 @@ function usuarioPut(db){
         var completo = true;
         var usuario = {};
         var falta = {};
-        
+                
         if("usuario" in req.body){
             usuario.usuario = req.body.usuario;
             falta.usuario = true;
@@ -108,12 +108,37 @@ function usuarioPut(db){
         }
         
         if("rol" in req.body){
-            usuario.rol = req.body.rol;
-            falta.rol = true;
+            falta.rol = {};
+            if(req.body.rol instanceof Object){
+                usuario.rol = {};
+                if("nombre" in req.body.rol){
+                    usuario.rol.nombre = req.body.rol.nombre;
+                    falta.rol.nombre = true;
+                }
+                else{
+                    falta.rol.nombre = false;
+                    completo = false;
+                }
+                if("permisos" in req.body.rol){
+                    usuario.rol.permisos = req.body.rol.permisos;
+                    falta.rol.permisos = true;
+                }
+                else{
+                    completo = false;
+                    falta.rol.permisos = false;
+                }
+            }
+            else{
+                completo = false;
+                falta.rol.nombre = false;
+                falta.rol.permisos = false; 
+            }
         }else{
             completo = false;
             falta.rol = false;
         }
+
+
         
         if(completo){
             //entra si el json esta completo
