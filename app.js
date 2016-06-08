@@ -79,12 +79,18 @@ apiRoutes.use(function(req, res, next) {
 
 	        var tienePermiso = false;
 	        var urlPath = req.url.substring(0, req.url.indexOf('?'));
-			console.log(req.decoded);
 	        
 			if('rol' in req.decoded){
-				for (var i = 0; i < req.decoded.rol.permisos.length; i++){
-					if (req.decoded.rol.permisos[i] === urlPath) {
+				if(myArray instanceof Array){
+					for (var i = 0; i < req.decoded.rol.permisos.length; i++){
+						if (req.decoded.rol.permisos[i] === urlPath) {
 
+							tienePermiso = true;
+						}
+					}
+				}
+				else{
+					if(req.decoded.rol.permisos == urlPath){
 						tienePermiso = true;
 					}
 				}

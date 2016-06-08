@@ -157,23 +157,33 @@ function  usuarioDelete(db) {
         
         dbUsuario = db.get("usuario");
         
-        if("_id" in req.body){
-            dbUsuario.remove({_id : req.body._id}, function(err){
-               if(err){
-                   throw err;
-               }else{
-                   res.json({
-                       success : true,
-                       message : "Se elimino correctamente"
-                   });
-               } 
-            });
-        }else{
+        if(!("_id" in req.body)){
             res.json({
                success : false,
                message : "Falata el _id" 
             });
+            return;
         }
+        
+        dbUsuario.findOne({_id : req.body._id},function(err, doc){
+            if(!doc){
+                res.json({
+                    success : false,
+                    message : "No existe el usuario para eliminarlo"
+                });
+            }else{
+                dbUsuario.remove({_id : req.body._id}, function(err){
+                    if(err){
+                        throw err;
+                    }else{
+                        res.json({
+                            success : true,
+                            message : "Se elimino correctamente"
+                        });
+                    } 
+                });
+            }
+        });
     };
 }
 
