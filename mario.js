@@ -70,9 +70,9 @@ function documentoPut(db) {
                 success : false,
                 message : "Faltan campos",
                 faltan : falta
-            })
+            });
         }   
-    }
+    };
 }
 
 //insertar usuarios
@@ -122,7 +122,7 @@ function usuarioPut(db){
                 if(err){
                     throw err;
                 }else{//controlamos si la longitud de la busqueda es 0 
-                    if(docs.length == 0){
+                    if(docs.length === 0){
                         dbUsuario.insert(usuario, function(err, doc){
                             if(err){
                                 throw err;
@@ -149,7 +149,7 @@ function usuarioPut(db){
                 faltan : falta                 
             });
         }
-    }
+    };
 }
 
 function  usuarioDelete(db) {
@@ -165,7 +165,7 @@ function  usuarioDelete(db) {
                    res.json({
                        success : true,
                        message : "Se elimino correctamente"
-                   })
+                   });
                } 
             });
         }else{
@@ -174,7 +174,7 @@ function  usuarioDelete(db) {
                message : "Falata el _id" 
             });
         }
-    }
+    };
 }
 
 exports.documentoPut = documentoPut;
