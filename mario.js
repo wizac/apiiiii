@@ -120,8 +120,16 @@ function usuarioPut(db){
                     completo = false;
                 }
                 if("permisos" in req.body.rol){
-                    usuario.rol.permisos = req.body.rol.permisos;
-                    falta.rol.permisos = true;
+                    if(req.body.rol.permisos instanceof Array){
+                        usuario.rol.permisos = req.body.rol.permisos;
+                        falta.rol.permisos = true;
+                    }
+                    {
+                        completo = false;
+                        falta.rol.permisos = "false, Tiene que ser un arreglo";
+                    }
+                    
+                    
                 }
                 else{
                     completo = false;
@@ -134,8 +142,10 @@ function usuarioPut(db){
                 falta.rol.permisos = false; 
             }
         }else{
+            falta.rol = {};
             completo = false;
-            falta.rol = false;
+            falta.rol.nombre = false;
+            falta.rol.permisos = "false, Tiene que ser un arreglo";
         }
 
 

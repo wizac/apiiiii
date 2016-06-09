@@ -13,7 +13,7 @@ module.exports = {
 				if (err) throw err;
 				res.json(data);
 			});
-		}
+		};
 	},
 
 	listarUsuarios: function(db){
@@ -30,6 +30,6 @@ module.exports = {
 				if (err) throw err;
 				res.json(data);
 			});
-		}
+		};
 	}
-}
+};
