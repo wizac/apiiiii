@@ -9,20 +9,18 @@ function registro(db){
 				else{
 					console.log(doc);
 					if(doc.length != 0){
-						res.send('Nombre de usuario no disponible.');
+						res.json({"msg" : "Nombre de usuario no disponible.", "success" : "false"});
 					}
 					else{
 						usuarios.insert(usuario, function( err, doc){
 							if(err) throw err;
 							else{
-								res.send('Binenvenido ' + usuario.usuario + '!!!!');
+								res.json({ "msg" :"Binenvenido " + usuario.usuario + "!!!!", "success" : "true"});
 							}
 						});
-						
 					}
 				}
 			})
-				
 			}	
 }
 
