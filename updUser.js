@@ -12,7 +12,7 @@ module.exports={
 			console.log(data);
 			if(data)
 			{
-				usuarios.update({_id:req.body._id},{"nombre":req.body.nombre,"usuario":req.body.usuario,"contrasena":req.body.contrasena,"rol":req.body.rol});
+				usuarios.update({_id:req.body._id},{"usuario":req.body.usuario,"contrasena":req.body.contrasena,"rol":req.body.rol});
 				res.json("usuario editado con exito");
 			}
 			else

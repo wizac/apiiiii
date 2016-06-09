@@ -77,5 +77,58 @@ Objetos JSON que tolera cada url.
 
 	'/api/insertarRol':
 	{
-		
+		"nombre" : "name-rol",
+		"permisos" : ["url1", "url2"...]
+	}
+
+	'/api/listarRol':
+	{}
+
+	'/api/modificarRol':
+	{
+		"_id" : "id-rol",
+		"nombre" : "name-rol",
+		"permisos" : ["url1", "url2"...]
+	}
+
+	'/api/asignarRol':
+	{
+		"u_id" : "id-user",
+		"r_id" : "id-rol"
+	}
+
+	'/api/borrarRol':
+	{
+		"_id" : "id-rol"
+	}
+
+	'/api/insertarUsuario':
+	{
+		"usuario" : "name-user",
+		"contrasena" : "pass-user",
+		"rol" : {
+			ObjectId: "id-rol",
+			"nombre" : "name-rol",
+			"permisos" : ["url1", "url2"...]
+		}
+	}
+
+	'/api/listarUsuarios':
+	{}
+
+	'/api/modificarUsuario':
+	{
+		"_id" : "id-user",
+		"usuario" : "name-user",
+		"contrasena" : "pass-user",
+		"rol" : {
+			ObjectId: "id-rol",
+			"nombre" : "name-rol",
+			"permisos" : ["url1", "url2"...]
+		}
+	}
+
+	'/api/borrarUsuario':
+	{
+		"_id" : "id-user"
 	}
