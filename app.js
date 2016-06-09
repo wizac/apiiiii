@@ -89,11 +89,6 @@ apiRoutes.use(function(req, res, next) {
 						}
 					}
 				}
-				else{
-					if(req.decoded.rol.permisos == urlPath){
-						tienePermiso = true;
-					}
-				}
 			}
 
     		if(tienePermiso)
