@@ -9,13 +9,11 @@ var mario = require('./mario');
 var tD = require("./transferirDocumento");
 var eD = require("./eliminaDocumento");
 var aD = require("./actualizaDocumento");
-
 var mario = require('./mario');
 var upd = require('./updUser');
 var tag=require('./TagManager.js');
 var autenticacion = require('./login.js');
 var listar = require('./listarDocumentosYUsuarios.js');
-
 
 app.use(bodyParser.json());
 
@@ -24,46 +22,45 @@ app.use('/api', apiRoutes);
 
 //-----------------------------------------------------------
 
-app.post('/api/insertarDocumento', mario.documentoPut(db));
+app.post('/registro', registro.registro(db));
+
+app.post('/autenticacion', autenticacion.login(db));
 
 app.post('/api/insertarTag', tag.put(db));
 
 app.post('/api/borrarTag', tag.del(db));
 
+app.post('/api/insertarDocumento', mario.documentoPut(db));
+
 app.post('/api/listarDocumentos', listar.listarDocumentos(db));
 
-app.post('/autenticacion', autenticacion.login(db));
-
-app.post('/registro', registro.registro(db));
+app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
 
 app.post('/api/transferirDocumento', tD.transferirDocumento(db));
 
 app.post('/api/transferirDocumentoAdmin', tD.transferirDocumentoAdmin(db));
 
-app.post('/api/borrarDocumentoAdmin', eD.eliminaDocumentoAdmin(db));
-
 app.post('/api/borrarDocumento', eD.eliminaDocumento(db));
 
-app.post('/api/actualizaDocumento', aD.actualizaDocumento(db));
+app.post('/api/borrarDocumentoAdmin', eD.eliminaDocumentoAdmin(db));
 
 app.post('/api/insertarRol', roles.insertarRol(db));
 
-app.post('/api/modificarRol', roles.modificarRol(db));
-
-app.post('/api/borrarRol', roles.borrarRol(db));
-
 app.post('/api/listarRol', roles.listarRol(db));
+
+app.post('/api/modificarRol', roles.modificarRol(db));
 
 app.post('/api/asignarRol', roles.asignarRol(db));
 
+app.post('/api/borrarRol', roles.borrarRol(db));
+
 app.post('/api/insertarUsuario', mario.usuarioPut(db));
+
+app.post('/api/listarUsuarios', listar.listarUsuarios(db));
 
 app.post('/api/modificarUsuario', upd.upd(db));
 
 app.post('/api/borrarUsuario', mario.usuarioDelete(db));
-
-app.post('/api/listarUsuarios', listar.listarUsuarios(db));
-
 
 //--------------------------------------------------
 
@@ -104,8 +101,6 @@ apiRoutes.use(function(req, res, next) {
 	    });
   	}
 });
-
-
 
 app.listen(3000, function () {
 	console.log('App ready!');

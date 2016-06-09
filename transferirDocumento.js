@@ -35,7 +35,7 @@ function transferirDocumentoAdmin(db)
 		IdDocumento = req.body.idDocumento; // pasar por post el id del documento con el campo idDocumento
 		var IdUsuarioNuevo = req.body.idUsuario; // pasar por post el id del usuario al que se le dara el documento con el campo idUsuario
 
-		documentos.findOne({_id:IdDocumento, dueno:req.decoded.id}, function(err, doc){
+		documentos.findOne({_id:IdDocumento}, function(err, doc){
 			if (err){
 				throw err;
 			}

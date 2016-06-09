@@ -78,7 +78,6 @@ function documentoPut(db) {
 //insertar usuarios
 /*
 usuario{
-	nombre
 	usuario
 	contrasena
 	rol
