@@ -8,7 +8,7 @@ documentos{
 	tags[]
 	dueno(id dueño)
 	archivo (archivo en base64)
-	}
+}
     
     mientras manden un json con esos parametro anda
 */
@@ -60,7 +60,7 @@ function documentoPut(db) {
                     res.json({
                         success : true,
                         message : "Se agrego a la base correctamente",
-                        documento : doc
+                        id : doc._id
                     });
                 }
                 

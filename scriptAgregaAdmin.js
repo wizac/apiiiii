@@ -2,37 +2,32 @@ conn = new Mongo("localhost");
 
 db = conn.getDB("apiiiii");
 
-/*
-usuario{
-	usuario
-	contrasena
-	rol
-	}
-*/
 admin = {
     usuario : "admin",
     contrasena : "admin",
     rol : {
             "nombre" : "admin",
             "permisos" : [ 
-                "/insertarDocumento", 
-                "/insertarTag", 
-                "/borrarTag", 
-                "/listarDocumentos", 
-                "/compartirDocumento", 
-                "/borrarDocumento", 
-                "/modificarDocumento", 
-                "/insertarRol", 
-                "/modificarRol", 
-                "/borrarRol", 
-                "/listarRol", 
-                "/asignarRol", 
-                "/insertarUsuario", 
-                "/modificarUsuario", 
-                "/borrarUsuario", 
-                "/listarUsuarios"
+                '/insertarTag',
+                '/borrarTag',
+                '/insertarDocumento',
+                '/listarDocumentos',
+                '/actualizaDocumento',
+                '/transferirDocumento',
+                '/transferirDocumentoAdmin',
+                '/borrarDocumento',
+                '/borrarDocumentoAdmin',
+                '/insertarRol',
+                '/listarRol',
+                '/modificarRol',
+                '/asignarRol',
+                '/borrarRol',
+                '/insertarUsuario',
+                '/listarUsuarios',
+                '/modificarUsuario',
+                '/borrarUsuario',
             ]
         }
-}
+};
 
 db.usuario.insert(admin);
