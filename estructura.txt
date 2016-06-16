@@ -1,17 +1,23 @@
-﻿usuario{
+﻿Formato de objetos en la base:
+
+usuario{
+	_id
 	usuario
 	contrasena
 	rol(objeto rol)
 	}
-documentos{
 
+documentos{
+	_id
 	caratula
 	titulo	
 	tags[]
 	dueno(id dueño)
 	archivo (archivo en base64)
 	}
+
 rol{
+	_id
 	nombre
 	permisos[]
 	}
